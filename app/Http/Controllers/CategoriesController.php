@@ -2,26 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Categories;
+use App\QueryBuilders\CategoryBuilder;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(CategoryBuilder $query)
     {
-        $categories = Categories::select(['id', 'name'])
-        ->withCount(['articles' => function ($query) {
-            return $query->groupBy('category_id');
-        }])
-            ->orderBy('articles_count', 'desc')
-            ->limit(10);
-
-        return $categories->jsonPaginate();
+        return $query->paginate();
     }
 
     /**
