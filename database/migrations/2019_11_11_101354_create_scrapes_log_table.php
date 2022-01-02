@@ -16,10 +16,10 @@ class CreateScrapesLogTable extends Migration
         Schema::create('scrapes_log', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('source_id');
-            $table->timestamp('started_at');
-            $table->timestamp('finished_at');
-            $table->bigInteger('articles_analyzed');
-            $table->bigInteger('articles_imported');
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
+            $table->bigInteger('articles_analyzed')->nullable();
+            $table->bigInteger('articles_imported')->nullable();
             
             $table->foreign('source_id')->references('id')->on('sources')
                 ->onUpdate('cascade')->onDelete('cascade');
