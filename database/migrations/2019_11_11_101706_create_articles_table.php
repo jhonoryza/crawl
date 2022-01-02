@@ -16,16 +16,16 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('source_id');
-            $table->string('original_id');
+            $table->string('original_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('link');
-            $table->timestamp('date_pub');
-            $table->timestamp('date_mod');
+            $table->timestamp('date_pub')->nullable();
+            $table->timestamp('date_mod')->nullable();
             $table->longText('content');
             $table->longText('excerpt')->nullable();
             $table->string('image')->nullable();
-            $table->boolean('featured');
+            $table->boolean('featured')->nullable();
             $table->timestamps();
 
             $table->foreign('source_id')->references('id')->on('sources')
